@@ -1,0 +1,105 @@
+C51 COMPILER V9.02   MAIN                                                                  09/22/2013 15:35:55 PAGE 1   
+
+
+C51 COMPILER V9.02, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN main.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE main.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          #include "main.h"
+   2          
+   3          #include "sch51_init.h"
+   4          /* ............................................................... */
+   5          /* ............................................................... */
+   6          
+   7          //LED FUNCS
+   8          void led0(void)
+   9          {
+  10   1              P0 = P0 ^ 1;
+  11   1      }
+  12          
+  13          void led1(void)
+  14          {
+  15   1              P0 = P0 ^2;
+  16   1      }
+  17          
+  18          void led2(void)
+  19          {
+  20   1              P0 = P0 ^4;
+  21   1      }
+  22          
+  23          void led3(void)
+  24          {
+  25   1              P0 = P0 ^8;
+  26   1      }
+  27          
+  28          void led4(void)
+  29          {
+  30   1              P0 = P0 ^16;
+  31   1      }
+  32          
+  33          void led5(void)
+  34          {
+  35   1              P0 = P0 ^32;
+  36   1      }
+  37          
+  38          void led6(void)
+  39          {
+  40   1              P0 = P0 ^64;
+  41   1      }
+  42          void led7(void)
+  43          {
+  44   1              P0 = P0 ^128;
+  45   1      }
+  46          //EINDE LEDS
+  47          
+  48          void main(void)
+  49          {
+  50   1         // setup microcontroller
+  51   1         PLLCON = 0x00;
+  52   1         P0 = 0x00;
+  53   1         
+  54   1         // Set up the scheduler
+  55   1         SCH_Init_T2();
+C51 COMPILER V9.02   MAIN                                                                  09/22/2013 15:35:55 PAGE 2   
+
+  56   1      
+  57   1         // Add the 'Flash LED' task (on for ~1000 ms, off for ~1000 ms)
+  58   1         // - timings are in ticks (~1 ms tick interval)
+  59   1         // (Max interval / delay is 65535 ticks)
+  60   1         SCH_Add_Task(led0, 0, 100);
+  61   1         SCH_Add_Task(led1, 5, 200);
+  62   1         SCH_Add_Task(led2, 10, 400);
+  63   1         SCH_Add_Task(led3, 15, 800);
+  64   1         SCH_Add_Task(led4, 20, 1000);
+  65   1         SCH_Add_Task(led5, 25, 2000);
+  66   1         SCH_Add_Task(led6, 30, 5000);
+  67   1         SCH_Add_Task(led7, 35, 10000);
+  68   1      
+  69   1         // Start the scheduler
+  70   1         SCH_Start();
+  71   1      
+  72   1         while(1) {
+  73   2            SCH_Dispatch_Tasks();
+  74   2         }
+  75   1      }
+  76          
+  77          
+  78          /*------------------------------------------------------------------*-
+  79            ---- END OF FILE -------------------------------------------------
+  80          -*------------------------------------------------------------------*/
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    167    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

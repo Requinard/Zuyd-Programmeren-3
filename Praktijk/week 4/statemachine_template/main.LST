@@ -1,0 +1,59 @@
+C51 COMPILER V9.02   MAIN                                                                  09/30/2013 10:59:05 PAGE 1   
+
+
+C51 COMPILER V9.02, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN main.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE main.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          #include "main.h"
+   2          #include "sch51_init.h"
+   3          #include "my_statemachine.h"
+   4          
+   5          /* ............................................................... */
+   6          /* ............................................................... */
+   7          
+   8          void main(void)
+   9          {  
+  10   1         // setup microcontroller
+  11   1         PLLCON = 0x00;
+  12   1         P0 = 0x00;
+  13   1         P1 &= ~(1<<6);
+  14   1         P1 &= ~(1<<7);
+  15   1      
+  16   1         // Set up the scheduler
+  17   1         SCH_Init_T2();
+  18   1      
+  19   1         // init tasks
+  20   1         init_statemachine();
+  21   1      
+  22   1         // - timings are in ticks (~1 ms tick interval)
+  23   1         SCH_Add_Task(statemachine, 0, 10);
+  24   1         SCH_Add_Task(switchStateMachine, 5, 20);
+  25   1      
+  26   1         // Start the scheduler
+  27   1         SCH_Start();                         
+  28   1      
+  29   1         while(1) {
+  30   2            SCH_Dispatch_Tasks();
+  31   2         }
+  32   1      }
+  33          
+  34          /*------------------------------------------------------------------*-
+  35            ---- END OF FILE -------------------------------------------------
+  36          -*------------------------------------------------------------------*/
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     54    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
